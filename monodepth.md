@@ -40,6 +40,6 @@
 
     **优缺点：** 价格低廉；传感器体积小；最贴近实际的应用需求；目前深度估计领域的研究热点
 
-    ![image-20220610104202088](monodepth.assets/image-20220610104202088.png)
+    ![image-20220610104202088](https://eddiespade.github.io/monodepth.assets/image-20220610104202088.png)
 
     
