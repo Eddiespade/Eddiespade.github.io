@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>导航 - KuangStudy</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="KuangStudy,KuangStudy文章,KuangStudy博客,KuangStudy论坛,KuangStudy学习,学相伴">
+    <meta name="description"
+          content="KuangStudy是一个致力于为每个想学习知识的人提供一个少走弯路的平台,包含优质体系课程、文章博客、专栏书写、技术论坛、资源下载等产品服务,提供有用、优质、完整内容的自学交流社区.">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta  http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" href="/assert/css/ksd.css?v=10.912"/><script src="/assert/js/jquery-3.5.1.min.js?v=10.912"></script><script src="/assert/js/clipboard.min.js?v=10.912"></script><script src="/layui/layui.js?v=10.912"></script><script src="/assert/js/common.js?v=10.912"></script><script src="/assert/js/debug/debug.js?v=10.912"></script><script src="/assert/js/commonmain.js?v=10.912"></script><script src="/assert/js/jqueryy.js?v=10.912"></script>
+    <link rel="stylesheet" href="/assert/css/app.css">
+</head>
+<body data-msg="1" style="background: #eff3f5">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand logo" href="/">
+            <img style="width: 112px;" src="/assert/images/index_topleft_logo_black.png" alt="">
+        </a>
+        <div class="collapse navbar-collapse position-relative">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item position-relative">
+                    <a class="nav-link ksd-nav-linknav nav-link-course" href="/course">课程</a>
+                    <i class="iconfont  ksd-bgd-left">热门</i>
+
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link ksd-nav-linknav nav-link-bbs" href="/bbs">江湖</a>
+
+
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link ksd-nav-linknav nav-link-zhuanlan" href="/zhuanlan">专栏</a>
+
+
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link ksd-nav-linknav nav-link-download" href="/download">下载</a>
+
+
+                </li>
+                <li class="nav-item position-relative">
+                    <a class="nav-link ksd-nav-linknav nav-link-app" href="/app">导航</a>
+
+
+                </li>
+            </ul>
+            <div id="ksdloginbox">
+                <div style="position: relative;top:-2px;">
+    <div>
+        <a class="btn btn-sm btn-primary loginbtn" href="javascript:void(0)">
+            <svg style="position: relative;top:1px;" class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+            </svg>
+            登录
+        </a>
+    </div>
+
+
+
+
+
+    <script>
+        $("#navbarDropdown").on("click",function(e){
+            var that = this;
+            var vip = $(that).data("vip");
+            $(".i-frame").hide();
+            $(".tipmessage-box,.dropdown-toggle").addClass("cofff");
+            $(".ksd-logindrop").toggleClass("ksd-logindropfixed");
+            $(".ksd-home,.tipmessage-box,.ktipmessage-boxc").toggle();
+            $(that).parent().toggleClass('show');
+            // 等级初始化
+            KsdRelation.level();
+            KsdSign.loadUserRecordQiandao();
+            KsdLogin.sysncount(function(){});
+
+            var lipboard = new ClipboardJS('.ksdcopylinknum');
+            lipboard.on('success', function (e) {
+                layer.msg("复制成功！")
+                e.clearSelection();
+            });
+        })
+
+        $(".ksd-logindrop").on("mouseleave",function(){
+            $(".ksd-home").hide();
+            $(".ksd-logindrop").removeClass("ksd-logindropfixed");
+            $(".tipmessage-box,.ktipmessage-boxc").show();
+            KsdLogin.count = 2;
+            $(".tipmessage-box,.dropdown-toggle").removeClass("cofff");
+            $(this).addClass('show').removeClass("showvip2 showvip1");
+        })
+    </script>
+</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var link = window.location.href;
+        $(".nav-link").removeClass("active");
+        var slink = link.substring(link.lastIndexOf("/")+1);
+        if(slink.indexOf("?")!=-1){
+            slink = slink.substring(0,slink.indexOf("?"));
+        }
+        $(".nav-link-"+slink).addClass("active");
+    </script>
+</nav>
+<nav>
+
+</nav>
+<div class="view-header">
+    <div class="view-container">
+        <div class="search-logo">
+            <a href="https://www.baidu.com/s?tn=18086630_dg&amp;ch=2" target="_blank" id="js_search-logo-link">
+                <img src="/assert/images/baidu.jpg" id="js_search-logo-img">
+            </a>
+        </div>
+        <div class="search-container">
+            <div class="search-box" id="search-box">
+                <form id="js_search-form" action="http://www.baidu.com/s" method="get" target="_blank"
+                      accept-charset="utf-8">
+                    <input type="text" id="js_search-wd" class="text" name="wd" autocomplete="off"
+                           placeholder="请输入搜索内容">
+                    <button class="button" id="js_search-btn" type="submit">搜索</button>
+                </form>
+            </div>
+            <div class="search-hotkeys" id="js_search-hotkeys">
+                <div class="hot-keys-stage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="view-main">
+    <div class="view-container">
+        <div class="view-box">
+            <div class="headline">
+                <strong>应用</strong>
+            </div>
+            <div class="list-url-quick" id="ksd-view-box-box" style="display: block" >
+                <ul>
+                    <li class="li-append ksd-open-items animated2 delay-1s bounceIn" >
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="css在线压缩" title="css在线压缩"
+                           data-link="/tools/css">
+                            <span class="ksdiconbtn"><i class="iconfont iconcss1"
+                                                        style="font-size: 29px;position: absolute;top: 25px;left:0;right:0;"></i></span>
+                            <p>css在线压缩</p>
+                        </a>
+                    </li>
+                    <li class="li-append ksd-open-items animated2 delay-2s bounceIn">
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="js在线压缩" title="js在线压缩"
+                           data-link="/tools/js">
+                            <span class="ksdiconbtn"><i class="iconfont iconjs"
+                                                        style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>js在线压缩</p>
+                        </a>
+                    </li>
+                    <li class="li-append animated2 bounceIn delay-3s">
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="HTML特殊符号表" title="HTML特殊符号表"
+                           data-link="/tools/special">
+                            <span class="ksdiconbtn"><i class="iconfont iconweb-channel"
+                                                        style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>HTML特殊符号表</p>
+                        </a>
+                    </li>
+                    <li class="li-append ksd-open-items animated2 delay-4s bounceIn" >
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="邮编区号查询" title="邮编区号查询"
+                           data-link="/tools/email">
+                                <span class="ksdiconbtn"><i class="iconfont iconcourse"
+                                                            style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>邮编区号查询</p>
+                        </a>
+                    </li>
+                    <li class="li-append ksd-open-items animated2 delay-5s bounceIn" >
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="车牌号归属地" title="车牌号归属地"
+                           data-link="/tools/card">
+                                <span class="ksdiconbtn"><i class="iconfont iconjiaochefuwu"
+                                                            style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>车牌号归属地</p>
+                        </a>
+                    </li>
+                    <li class="li-append ksd-open-items animated2 delay-7s bounceIn">
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="年龄计算器" title="年龄计算器"
+                           data-link="/tools/age">
+                                <span class="ksdiconbtn"><i class="iconfont iconboss-manage"
+                                                            style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>年龄计算器</p>
+                        </a>
+                    </li>
+                    <li class="li-append ksd-open-items animated2 delay-8s bounceIn">
+                        <a href="javascript:;" class="btn-link ksd-open-link" data-title="数字大写转换" title="数字大写转换"
+                           data-link="/tools/character">
+                                <span class="ksdiconbtn"><i class="iconfont icongerenjianli"
+                                                            style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>数字大写转换</p>
+                        </a>
+                    </li>
+
+                    <li class="li-append ksd-open-items animated2 delay-9s bounceIn">
+                        <a href="javascript:;" class="btn-link ksd-open-link-dialog" data-title="欢乐斗地主" title="欢乐斗地主"
+                           data-link="https://hlddz.huanle.qq.com/">
+                            <span class="ksdiconbtn">
+                                <img src="/assert/images/doudizhu.jpg"
+                                     style="width: 48px;height: 48px;position: relative;top:14px;" alt="">
+                            </span>
+                            <p>欢乐斗地主</p>
+                        </a>
+                    </li>
+
+                    <li class="li-append ksd-open-items animated2 delay-9s bounceIn">
+                        <a href="javascript:;" class="btn-link ksd-open-link-mu" data-title="电影网址导航" title="电影网址导航">
+                             <span class="ksdiconbtn"><i class="iconfont iconbofang"
+                                                         style="font-size: 29px;position: absolute;top: 23px;left:0;right:0;"></i></span>
+                            <p>电影网址导航</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            $(function(){
+                $(".ksd-open-link-mu").on("click",function(){
+                    $(".comRowGuid").toggle();
+                })
+            })
+        </script>
+
+        <div class="comRowGuid" style="display: none">
+
+
+            <dl class="">
+                <dt><a><strong>BT下载网站</strong></a></dt>
+                <dd>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><a href="https://www.btdx8.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/btdx8.gif"
+                                                                      alt="比特大雄">比特大雄</a></td>
+
+                            <td><a href="http://www.rarbt.cc/"><img width="16" height="16" class="img"
+                                                                    src="/assert/mov/rarbt_cc.gif"
+                                                                    alt="RARBT电影天堂">RARBT电影天堂</a></td>
+
+                            <td><a href="https://www.36dm.com/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/36dm.gif"
+                                                                     alt="简单动漫BT资源">简单动漫BT资源</a></td>
+
+                            <td><a href="https://www.btwuji.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/btwuji.gif"
+                                                                       alt="无极电影">无极电影</a></td>
+
+                            <td><a href="https://www.ibtba.cc/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/ibtba_cc.gif"
+                                                                     alt="BT吧">BT吧</a></td>
+
+                            <td><a href="https://www.btsj5.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/btsj5.gif"
+                                                                      alt="BT世界">BT世界</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.12bt.net/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/12bt_net.gif"
+                                                                     alt="12BT天堂">12BT天堂</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+            <div class="shr"></div>
+
+            <dl class="">
+                <dt><a><strong>影视资源BT下载</strong></a></dt>
+                <dd>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><a href="https://xunlei8.cc/"><img width="16" height="16" class="img"
+                                                                   src="/assert/mov/xunlei8_cc.gif"
+                                                                   alt="迅雷电影天堂"><font
+                                    color="red">迅雷电影天堂</font></a></td>
+
+                            <td><a href="https://www.dytt8.net/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/dytt8_net.gif"
+                                                                      alt="第一电影天堂">第一电影天堂</a></td>
+
+                            <td><a href="https://www.ygdy8.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/ygdy8.gif"
+                                                                      alt="阳光电影">阳光电影</a></td>
+
+                            <td><a href="https://www.dygod.net/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/dygod_net.gif"
+                                                                      alt="电影天堂">电影天堂</a></td>
+
+                            <td><a href="http://www.hao6v.com/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/hao6v.gif"
+                                                                     alt="6V电影网">6V电影网</a></td>
+
+                            <td><a href="https://www.dy2018.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/dy2018.gif"
+                                                                       alt="电影天堂高清">电影天堂高清</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.piaohua.com/"><img width="16" height="16" class="img"
+                                                                        src="/assert/mov/piaohua.gif"
+                                                                        alt="飘花资源网">飘花资源网</a></td>
+
+                            <td><a href="https://www.dygang.cc/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/dygang.gif"
+                                                                      alt="电影港1080p">电影港1080p</a></td>
+
+                            <td><a href="http://gaoqing.la/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/gaoqing_la.gif"
+                                                                  alt="中国高清网">中国高清网</a></td>
+
+                            <td><a href="https://www.repian.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/repian.gif"
+                                                                       alt="热片网">热片网</a></td>
+
+                            <td><a href="https://www.1080.cn/"><img width="16" height="16" class="img"
+                                                                    src="/assert/mov/1080_cn.gif"
+                                                                    alt="蓝光电影网">蓝光电影网</a></td>
+
+                            <td><a href="http://www.dy1234.net/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/dy1234_net.gif"
+                                                                      alt="电影家园">电影家园</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.xiaopian.com/"><img width="16" height="16" class="img"
+                                                                         src="/assert/mov/xiaopian.gif"
+                                                                         alt="小调网">小调网</a></td>
+
+                            <td><a href="http://www.meijuniao.com/"><img width="16" height="16" class="img"
+                                                                         src="/assert/mov/meijuniao.gif"
+                                                                         alt="美剧鸟">美剧鸟</a></td>
+
+                            <td><a href="https://www.meijutt.tv/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/meijutt_tv.gif"
+                                                                       alt="美剧天堂">美剧天堂</a></td>
+
+                            <td><a href="https://cn163.net/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/cn163_net.gif"
+                                                                  alt="天天美剧">天天美剧</a></td>
+
+                            <td><a href="http://www.ttmj.cc/"><img width="16" height="16" class="img"
+                                                                   src="/assert/mov/ttmj_cc.gif"
+                                                                   alt="天天美剧网">天天美剧网</a></td>
+
+                            <td><a href="https://www.aimeiju.com/"><img width="16" height="16" class="img"
+                                                                        src="/assert/mov/aimeiju.gif"
+                                                                        alt="爱美剧">爱美剧</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://www.wukongmeiju.com/"><img width="16" height="16" class="img"
+                                                                            src="/assert/mov/wukongmeiju.gif"
+                                                                            alt="悟空美剧">悟空美剧</a></td>
+
+                            <td><a href="https://91mjw.com/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/91mjw.gif"
+                                                                  alt="91美剧网">91美剧网</a></td>
+
+                            <td><a href="http://www.zzrbl.com/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/zzrbl.gif"
+                                                                     alt="猪猪日部落">猪猪日部落</a></td>
+
+                            <td><a href="http://www.wwmulu.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/wwmulu.gif"
+                                                                      alt="91日剧">91日剧</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+            <div class="shr"></div>
+
+            <dl class="">
+                <dt><a><strong>BT磁力链接搜索</strong></a></dt>
+                <dd>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><a href="https://btlm.life/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/btlm_life.gif"
+                                                                  alt="BT磁力联盟"><font
+                                    color="red">BT磁力联盟</font></a></td>
+
+                            <td><a href="https://02516clss.ciligou.live/"><img width="16" height="16" class="img"
+                                                                               src="/assert/mov/ciligou_live.gif"
+                                                                               alt="磁力超级搜索"><font
+                                    color="red">磁力超级搜索</font></a></td>
+
+                            <td><a href="http://yhgyhg.icu/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/yhgyhg_icu.gif"
+                                                                  alt="移花宫"><font
+                                    color="red">移花宫</font></a></td>
+
+                            <td><a href="http://www.jukan.xyz/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/jukan_xyz.gif"
+                                                                     alt="磁力搜索引擎"><font
+                                    color="red">磁力搜索引擎</font></a></td>
+
+                            <td><a href="http://www.bvbus.com/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/bvbus.gif"
+                                                                     alt="瑞典磁力搜索引擎"><font
+                                    color="red">瑞典磁力搜索引擎</font></a></td>
+
+                            <td><a href="https://ciligou.icu/"><img width="16" height="16" class="img"
+                                                                    src="/assert/mov/ciligou_icu.gif"
+                                                                    alt="磁力狗"><font
+                                    color="red">磁力狗</font></a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="http://clttt.cyou/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/clttt_cyou.gif"
+                                                                  alt="BT磁力天堂"><font
+                                    color="red">BT磁力天堂</font></a></td>
+
+                            <td><a href="https://www.cilibk.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/cilisql.gif"
+                                                                       alt="磁力百科社区">磁力百科社区</a></td>
+
+                            <td><a href="http://berrl.com/"><img width="16" height="16" class="img"
+                                                                 src="/assert/mov/berrl.gif"
+                                                                 alt="磁力湾搜索">磁力湾搜索</a></td>
+
+                            <td><a href="http://ciliduo.vip"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/ciliduo_vip.gif"
+                                                                  alt="磁力多">磁力多</a></td>
+
+                            <td><a href="https://cursor.vip/vip"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/cursor_vip.gif"
+                                                                      alt="吃力多">吃力多</a></td>
+
+                            <td><a href="https://katcr.to/"><img width="16" height="16" class="img"
+                                                                 src="/assert/mov/katcr_to.gif"
+                                                                 alt="KickAssTorrents">KickAssTorrents</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://bthook.cc/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/bthook_cc.gif"
+                                                                  alt="磁力树">磁力树</a></td>
+
+                            <td><a href="https://search.chongbuluo.com/"><img width="16" height="16" class="img"
+                                                                              src="/assert/mov/chongbuluo.gif"
+                                                                              alt="虫部落搜资源">虫部落搜资源</a></td>
+
+                            <td><a href="http://cili.search.qinggl.com/"><img width="16" height="16" class="img"
+                                                                              src="/assert/mov/qinggl.gif"
+                                                                              alt="轻略磁力">轻略磁力</a></td>
+
+                            <td><a href="https://sofan.icu/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/sofan_ic.gif"
+                                                                  alt="搜番">搜番</a></td>
+
+                            <td><a href="http://www.btmovi.shop/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/btmovi_work.gif"
+                                                                       alt="磁力蜘蛛">磁力蜘蛛</a></td>
+
+                            <td><a href="https://www.tokyotosho.info/"><img width="16" height="16" class="img"
+                                                                            src="/assert/mov/tokyotosho_info.gif"
+                                                                            alt="东京图书馆">东京图书馆</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="http://bt.ciliba.us/"><img width="16" height="16" class="img"
+                                                                    src="/assert/mov/ciliba_us.gif"
+                                                                    alt="磁力吧">磁力吧</a></td>
+
+                            <td><a href="http://wx677.xyz/"><img width="16" height="16" class="img"
+                                                                 src="/assert/mov/wx668_icu.gif"
+                                                                 alt="无限磁力">无限磁力</a></td>
+
+                            <td><a href="http://sbt2066.xyz/"><img width="16" height="16" class="img"
+                                                                   src="/assert/mov/sbt2077_icu.gif"
+                                                                   alt="sbt磁力">sbt磁力</a></td>
+
+                            <td><a href="http://www.movih.com/"><img width="16" height="16" class="img"
+                                                                     src="/assert/mov/movih.gif"
+                                                                     alt="磁力王">磁力王</a></td>
+
+                            <td><a href="https://9cili.com/"><img width="16" height="16" class="img"
+                                                                  src="/assert/mov/9cili.gif"
+                                                                  alt="磁力海">磁力海</a></td>
+
+                            <td><a href="https://199234.xyz/"><img width="16" height="16" class="img"
+                                                                   src="/assert/mov/199234_xyz.gif"
+                                                                   alt="磁力猫">磁力猫</a></td>
+
+                        </tr>
+                        <tr></tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+            <div class="shr"></div>
+
+            <dl class="">
+                <dt><a><strong>常用BT软件</strong></a></dt>
+                <dd>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><a href="https://www.cilizhai.com/"><img width="16" height="16" class="img"
+                                                                         src="/assert/mov/cilizhai.gif"
+                                                                         alt="磁力宅"><font
+                                    color="red">磁力宅</font></a></td>
+
+                            <td><a href="https://www.utorrent.com/"><img width="16" height="16" class="img"
+                                                                         src="/assert/mov/utorrent.gif"
+                                                                         alt="uTorrent">uTorrent</a></td>
+
+                            <td><a href="https://www.qbittorrent.org/download.php"><img width="16" height="16"
+                                                                                        class="img"
+                                                                                        src="/assert/mov/qbittorrent_org.gif"
+                                                                                        alt="qBittorrent">qBittorrent</a>
+                            </td>
+
+                            <td><a href="https://xiazai.zol.com.cn/detail/11/109950.shtml"><img width="16"
+                                                                                                height="16"
+                                                                                                class="img"
+                                                                                                src="/assert/mov/zol_com_cn.gif"
+                                                                                                alt="BitTorrent7.10.5">BitTorrent7.10.5</a>
+                            </td>
+
+                            <td><a href="http://www.vuze.com/"><img width="16" height="16" class="img"
+                                                                    src="/assert/mov/vuze.gif"
+                                                                    alt="Vuze(Azureus毒蛙)">Vuze(Azureus毒蛙)</a></td>
+
+                            <td><a href="http://www.bitcomet.com/cn"><img width="16" height="16" class="img"
+                                                                          src="/assert/mov/bitcomet.gif"
+                                                                          alt="比特彗星(BitComet)">比特彗星(BitComet)</a>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="https://xiazai.zol.com.cn/detail/11/108460.shtml"><img width="16"
+                                                                                                height="16"
+                                                                                                class="img"
+                                                                                                src="/assert/mov/zol_com_cn.gif"
+                                                                                                alt="比特精灵(BitSpirit)3.6">比特精灵(BitSpirit)3.6</a>
+                            </td>
+
+                            <td><a href="https://www.freedownloadmanager.org/zh/"><img width="16" height="16"
+                                                                                       class="img"
+                                                                                       src="/assert/mov/freedownloadmanager_org.gif"
+                                                                                       alt="Free Download manager">Free
+                                Download manager</a></td>
+
+                            <td><a href="https://www.tixati.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/tixati.gif"
+                                                                       alt="Tixati">Tixati</a></td>
+
+                            <td><a href="http://www.verycd.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/verycd.gif"
+                                                                      alt="VeryCD电驴">VeryCD电驴</a></td>
+
+                            <td><a href="http://www.xi-soft.com/"><img width="16" height="16" class="img"
+                                                                       src="/assert/mov/xi-soft.gif"
+                                                                       alt="网络传送带">网络传送带</a></td>
+
+                            <td><a href="https://dl.xunlei.com/"><img width="16" height="16" class="img"
+                                                                      src="/assert/mov/xunlei.gif"
+                                                                      alt="迅雷(Thunder)">迅雷(Thunder)</a></td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="http://www.flashget.com/"><img width="16" height="16" class="img"
+                                                                        src="/assert/mov/flashget.gif"
+                                                                        alt="快车(Flashget)">快车(Flashget)</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+            <div class="shr"></div>
+        </div>
+
+
+        <div class="view-box" id="js_box-url-suggest" style="">
+            <div class="headline">
+                <strong>编程</strong>
+            </div>
+            <div class="list-url-suggest">
+                <ul>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.aliyun.com/minisite/goods?userCode=0phtycgr" target="_blank">
+                            <img src="https://www.aliyun.com/favicon.ico">
+                            <span>服务器购买</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://gitee.com/xuexiangban" target="_blank">
+                            <img src="https://gitee.com/favicon.ico">
+                            <span>码云</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://lanhuapp.com/" target="_blank">
+                            <img src="data:image/x-icon;base64,AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4CAAPJzSUTyckmZ8XJJxfFySdPxckm58XJJgfF0SiYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8XVMEvJzSU70dUsSAAAAAAAAAAAAAAAAAAAAAPFySULxcknL8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ/fFySafydUwkAAAAAAAAAAAAAAAAAAAAAPR0SxLxc0pM9HNKEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxcknJ8XJJ//FySffxckml8nJJePFySYHxcknJ8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySfvxckmv8XJKcvFzSXTxckmn8XJJ9/FySf/xcknJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPFySfPxckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySfMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8XJJh/FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJhwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/gFUC8XJJwfFySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FyScP/gFUCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxdEoq8XJJ/fFySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8nNJMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxckm38XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FyScEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPFzSWjxckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8nNKdgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8nNKLPFySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//FySf/zc0o+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD0dUoG8XJJ+/FySf/xckn/8XJJ//FySf/xckn/8XJJ//J8Vv/2oof/96+Y//aih//yfFf/8XJJ//FySf/xckn/8XJJ//FySf/xckn/8XJJ//J2SxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxcknl8XJJ//FySf/xckn/8XJJ//FzS//4uqb//vv6//////////////////76+f/4uqb/8XNL//FySf/xckn/8XJJ//FySf/xckn5/4CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPFySc/xckn/8XJJ//FySf/xckn/+sq7///////////////////////////////////////6yrv/8XJJ//FySf/xckn/8XJJ//FySeUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8XJJxfFySf/xckn/8XJJ//adgf///////////////////////////+jm5v/U0dH/9/b2///////1nYD/8XJJ//FySf/xckn/8XJJ2QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxckm98XJJ//FySf/xckn/+9jM//////////////////////+Rioj/QTUy/0E1Mv9SR0T/0s/P//vXy//xckn/8XJJ//FySf/xcknTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPFySbfxckn/8XJJ//FySf/+9fL/////////////////xcHA/0E1Mv9BNTL/QTUy/0E1Mv9YTkv//vTx//FySf/xckn/8XJJ//FySc8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8XJJpfFySf/xckn/8XJJ//749v////////////////+clpT/QTUy/0E1Mv9BNTL/QTUy/0E1Mv/t5OH/8XJJ//FySf/xckn/8XJJuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADxckmJ8XJJ//FySf/xckn//OPb/////////////////7q2tf9BNTL/QTUy/0E1Mv9BNTL/T0RB//vg1//xckn/8XJJ//FySf/xckmhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPJzSkzxckn/8XJJ//FySf/3s5z//////////////////Pz8/3dubP9BNTL/QTUy/0Y7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">
+                            <span>蓝湖</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.processon.com/" target="_blank">
+                            <img src="https://www.processon.com/favicon.ico">
+                            <span>processon</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://pay.weixin.qq.com/" target="_blank">
+                            <img src="https://wx.gtimg.com/core/favicon.ico">
+                            <span>微信支付</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://open.weixin.qq.com/" target="_blank">
+                            <img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico">
+                            <span>微信开放平台</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.alipay.com/" target="_blank">
+                            <img src="https://img.alicdn.com/tfs/TB1qEwuzrj1gK0jSZFOXXc7GpXa-32-32.ico">
+                            <span>支付宝</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.nowcoder.com/contestRoom" target="_blank">
+                            <img src="https://www.nowcoder.com/favicon.ico">
+                            <span>牛客网</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://leetcode-cn.com/problemset/all/" target="_blank">
+                            <img src="https://leetcode-cn.com/favicon.ico">
+                            <span>LeetCode</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="http://iconfont.cn/" target="_blank">
+                            <img src="https://img.alicdn.com/tps/i4/TB1_oz6GVXXXXaFXpXXJDFnIXXX-64-64.ico">
+                            <span>iconfont</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.bootcdn.cn/" target="_blank">
+                            <img src="https://www.bootcdn.cn/assets/ico/favicon.ico?1608299009206">
+                            <span>BootCDN</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="view-box" id="js_box-url-suggest" style="">
+            <div class="headline">
+                <strong>金融</strong>
+            </div>
+            <div class="list-url-suggest">
+                <ul>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.taoguba.com.cn/" target="_blank">
+                            <img src="https://www.taoguba.com.cn/favicon.ico">
+                            <span>淘股吧</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://xueqiu.com/u/kuangshen" target="_blank">
+                            <img src="https://xqdoc.imedao.com/17aebcfb84a145d33fc18679.ico">
+                            <span>雪球</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.cls.cn/telegraph" target="_blank">
+                            <img src="https://cdnjs.cls.cn/www/20200601/image/favicon.ico">
+                            <span>财联社</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.ouyicn.group/join/13639421" target="_blank">
+                            <img src="https://static.coinall.ltd/cdn/assets/imgs/221/A73079733B3789DA.png">
+                            <span>欧易BTC</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="http://www.iwencai.com/unifiedwap/home/index?qs=return_stock" target="_blank">
+                            <img src="http://www.iwencai.com/favicon.ico">
+                            <span>问财</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://futures.eastmoney.com/" target="_blank">
+                            <img src="https://g1.dfcfw.com/g1/special/favicon_shortcut.ico">
+                            <span>东财期货</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://favor.fund.eastmoney.com/" target="_blank">
+                            <img src="https://favor.fund.eastmoney.com/favicon.ico">
+                            <span>天天基金网</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="view-box" id="js_box-url-suggest" style="">
+            <div class="headline">
+                <strong>媒体</strong>
+            </div>
+            <div class="list-url-suggest">
+                <ul>
+                    <li>
+                        <a class="ksd-link-a" href="https://space.bilibili.com/701446427/" target="_blank">
+                            <img src="https://space.bilibili.com/favicon.ico">
+                            <span>哔哩哔哩</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.zhihu.com/people/xuexiangban" target="_blank">
+                            <img src="https://www.zhihu.com/favicon.ico">
+                            <span>知乎</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.toutiao.com/c/user/token/MS4wLjABAAAArhqBubaMnH3Y_0bG4V7xz1Te4GRLlGzhSBcrLSoUPShKIZi5TW2sPfrH1g3vD4L4/" target="_blank">
+                            <img src="https://www.toutiao.com/favicon.ico">
+                            <span>今日头条</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://xuexiangban.ke.qq.com" target="_blank">
+                            <img src="https://xuexiangban.ke.qq.com/favicon.ico">
+                            <span>腾讯课堂</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.qq.com/" target="_blank">
+                            <img src="https://mat1.gtimg.com/qqcdn/qqindex2021/favicon.ico">
+                            <span>腾讯新闻</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.cctv.com/" target="_blank">
+                            <img src="https://www.cctv.com/favicon.ico">
+                            <span>央视网</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://music.163.com/" target="_blank">
+                            <img src="https://s1.music.126.net/style/favicon.ico?v20180823">
+                            <span>网易云音乐</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://mp.dayu.com/" target="_blank">
+                            <img src="https://image.uc.cn/s/uae/g/1v/images/index/favicon.ico">
+                            <span>大鱼号</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://baijiahao.baidu.com/builder/theme/bjh/login" target="_blank">
+                            <img src="https://bjhstatic.cdn.bcebos.com/fe-react-register/static/media/baidu.04b11000.png">
+                            <span>百家号</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://www.douyin.com/" target="_blank">
+                            <img src="https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico">
+                            <span>抖音网页版</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ksd-link-a" href="https://mp.weixin.qq.com/" target="_blank">
+                            <img src="https://wx.gtimg.com/core/favicon.ico">
+                            <span>微信公众平台</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottomBg body-border-top">
+    <div class="layui-container">
+        <div class="bottomPart1" style="margin-bottom: 20px">
+            <ul class="menu">
+                <li> <a href="javascript:void(0);">关于我们</a>
+                    <ul>
+                        <li> <a href="/about">企业介绍 </a> </li>
+                        <li> <a href="/bbs/1324205709382770689">加入我们</a> </li>
+                        <li> <a href="/bbs/1324199621287600130">联系我们</a> </li>
+                        <li> <a href="/zl/help">帮助中心</a> </li>
+                    </ul> </li>
+                <li> <a href="javascript:void(0);">平台服务</a>
+                    <ul>
+                        <li> <a href="/bbs">江湖</a> </li>
+                        <li> <a href="/zhuanlan">专栏</a> </li>
+                        <li> <a href="/course">课程</a> </li>
+                        <li> <a href="/app">导航</a> </li>
+                    </ul> </li>
+                <li> <a href="https://www.kuangstudy.com/">技术支持</a>
+                    <ul>
+                        <li> <a href="https://www.kuangstudy.com/">广东学相伴网络科技有限公司 </a> </li>
+                        <li style="margin-top: 33px;"><a href="https://www.wafcloud.net/" target="_blank"><img src="/assert/img/wafcloud-124x47.png" height="47" width="124"/></a></li>
+                    </ul>
+                </li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="bottomPart2">
+            <div class="codeCon">
+                <li class="item">
+                    <div class="Img c01">
+                        <img onerror="imgError(this)" style="filter:grayscale(100%);" src="/assert/img/weixin.jpg" />
+                    </div> <span>公众号</span>
+                    <div class="clearfix"></div>
+                    <div class="tooltip">
+                        <div class="ImgCode">
+                            <img onerror="imgError(this)" src="/assert/img/wx.jpg" />
+                            <p>官方公众号</p>
+                        </div>
+                        <div class="arrow"></div>
+                    </div> </li>
+                <li class="item">
+                    <div class="Img c02">
+                        <img onerror="imgError(this)" style="filter:grayscale(100%);" src="/assert/img/douyin.png" />
+                    </div> <span>官方抖音</span>
+                    <div class="clearfix"></div>
+                    <div class="tooltip">
+                        <div class="ImgCode">
+                            <img onerror="imgError(this)" src="/assert/img/dy.png" />
+                            <p>抖音</p>
+                        </div>
+                        <div class="arrow"></div>
+                    </div> </li>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="copy body-border-top">
+            <span>Copyright © 广东学相伴网络科技有限公司 </span><a href="http://beian.miit.gov.cn/" target="_blank">粤ICP备 - 2020109190号 </a>
+        </div>
+    </div>
+</div><ul class="layui-fixbar">
+    <li class="layui-icon layui-fixbar-top" lay-type="top" style="display: list-item;"></li>
+</ul><div id="UDBSdkLgn">
+    <div id="UDBSdkLgn-mask"></div>
+    <div id="UDBSdkLgn-box" class="animated2 bounceInDown" style="height: 460px;">
+        <div class="udb-wrap">
+            <a href="javascript:void(0);" class="loginclose" title="关闭" id="close-udbLogin"><i class="iconfont iconremove1"></i></a>
+            <div class="input-login-wrap login-digla login-wrap" style="" id="input-login-wrap">
+                <div class="login-content">
+                    <div class="wx-qr-content ksd-weixin-content" style="display: block;">
+                        <div class="login-title">打开微信扫一扫登录/注册</div>
+                        <div class="wx-qr-code">
+                            <div class="wx-qr-code-img">
+                                <div class="img">
+                                    <a class="weixin-login weixin-login-btn">
+                                        <i class="iconfont iconweixin"></i>微信扫描注册/登录
+                                    </a>
+                                </div>
+                                <div class="loadtipweixin" style="display: none;position:relative;top:44px;">
+                                    <span style="font-size: 18px;font-weight: bold;color:#1E9FFF;">正在登录，请稍后...</span>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                                <p class="weixin-text">
+                                    <a class="weixin-login ksd-login" data-index="1" href="javascript:void(0);">账号登录</a>
+                                </p>
+                            </div>
+                            <div class="form-bottom" style="margin:75px 0 0 ">
+                                <p  class="weixin-text fz12" style="color: gray">登录即代表你同意<a href="https://www.kuangstudy.com/bbs/1324277936014766081" target="_blank" style="padding:0 2px;color: #111;text-decoration: underline;font-size:12px;">用户协议</a>和<a target="_blank" href="https://www.kuangstudy.com/bbs/1324272431531831298" style="font-size:12px;padding:0 2px;color: #111;text-decoration: underline;">隐私政策</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="phone-content ksd-weixin-content" style="display: none">
+                        <div class="login-title">账号登录</div>
+                        <div class="form-login">
+                            <div class="usernameBox">
+                                <input type="text" class="cyinput1 form-control ksd-account-phone" autofocus="autofocus"  maxlength="20" placeholder="请输入手机号 或 用户数字编号 登录">
+                            </div>
+                            <div class="usernameBox">
+                                <input type="password" class="cyinput1 form-control ksd-account-pwd" maxlength="18" placeholder="请输入6-18位密码">
+                            </div>
+                            <button class="cymyloginbutton goLogin account-login">登录</button>
+                            <div class="form-bottom" style="margin:20px 0">
+                                <p class="weixin-text">
+                                    <a class="weixin-login ksd-login" data-index="0" href="javascript:void(0);">微信扫描注册/登录</a>
+                                </p>
+                            </div>
+                            <div class="form-bottom" style="margin:20px 0">
+                                <p  class="weixin-text fz12" style="color: gray">登录即代表你同意<a target="_blank" href="https://www.kuangstudy.com/bbs/1324277936014766081" style="padding:0 2px;color: #111;text-decoration: underline;font-size:12px;">用户协议</a>和<a href="https://www.kuangstudy.com/bbs/1324272431531831298" target="_blank" style="font-size:12px;padding:0 2px;color: #111;text-decoration: underline;">隐私政策</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assert/js/app/index.js?v=10.912"></script>
+</body>
+</html>
