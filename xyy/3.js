@@ -1,6 +1,6 @@
 var Snake = function(ele,scoreele,speedele,x,y){
 
-	this.cellWidth = 15;//¸ñ×ÓµÄ´óĞ¡
+	this.cellWidth = 15;//??????Ğ¡
 	this.ele = document.getElementById(ele);
 	this.cxt = this.ele.getContext("2d");
 	this.x=x;
@@ -8,20 +8,20 @@ var Snake = function(ele,scoreele,speedele,x,y){
 	this.scoreele = document.getElementById(scoreele);
 	this.speedele = document.getElementById(speedele);
 
-	//Éú³Écanvas´óĞ¡¡£±ß¿ò¡£
+	//????canvas??Ğ¡?????
 	this.ele.width = this.cellWidth * this.x;
 	this.ele.height = this.cellWidth * this.y;
 	this.ele.style.border ="2px solid #000";
 
-	this.changeDiretion();//°ó¶¨·½ÏòÊÂ¼ş¡£
+	this.changeDiretion();//??????????
 }
 
 Snake.prototype = {
 
 	init:function(){
-		//³õÊ¼»¯£¬ÖØÖÃ¡£»Ö¸´jsÊı¾İÒÔ¼°dom¡£
+		//??????????Ã¡????js???????dom??
 
-		this.direction = 1;//ÏòÓÒ  2ÏÂ 3×ó  4 ÉÏ
+		this.direction = 1;//????  2?? 3??  4 ??
 		this.nextDirection = '';
 		this.snakeArr = [[0,parseInt(this.y/2)],[1,parseInt(this.y/2)]];
 		this.speed = 1;
@@ -29,15 +29,15 @@ Snake.prototype = {
 
 		this.cxt.fillStyle ='#fff';
 		this.cxt.fillRect(0,0,this.cellWidth*this.x,this.cellWidth*this.y);
-		this.scoreele.innerHTML="ÎÒµÄµÃ·Ö£º0";
-		this.speedele.innerHTML="µ±Ç°ËÙ¶È£º1";
+		this.scoreele.innerHTML="æˆ‘çš„å¾—åˆ†ï¼š0";
+		this.speedele.innerHTML="å½“å‰é€Ÿåº¦ï¼š1";
 
 		this.createCoolPoint();
 		this.drawCell(this.coolPoint,2);
 		this.drawSnake();
 		this.setTimer();
 	},
-	getCellArea:function(pos){//·µ»ØÒ»¸ö¸ñ×Ó×óÉÏ½ÇµÄÏñËØ×ø±ê[32,666];
+	getCellArea:function(pos){//?????????????????????????[32,666];
 		return [(pos[0]-1)*this.cellWidth+1,(pos[1]-1)*this.cellWidth+1];
 	},
 	setTimer:function(){
@@ -55,63 +55,63 @@ Snake.prototype = {
 
 	},
 	moveSnake:function(){
-		//ÒÆ¶¯ÉßµÄÂß¼­¡£Êı×é´¦Àí¡£
+		//??????????????é´¦??
 
-		this.direction = this.nextDirection == ''?this.direction:this.nextDirection;//µ±Ç°ÒÆ¶¯·½Ïò£¬ºÍÏÂÒ»¸öÒÆ¶¯·½Ïò¡£ÕâÑù´¦ÀíÄÜ±ÜÃâÒ»¸öbug.
+		this.direction = this.nextDirection == ''?this.direction:this.nextDirection;//???????????????????????????????????????bug.
 		var direction = this.direction;
 		var snakeArr = this.snakeArr;
 		var snakeHead = snakeArr[snakeArr.length-1];
 		switch(direction){
-			case 1 ://ÏòÓÒ
+			case 1 ://????
 			snakeHead = [snakeHead[0]+1,snakeHead[1]];
 			break;
-			case 2 ://ÏòÏÂ
+			case 2 ://????
 			snakeHead = [snakeHead[0],snakeHead[1]+1];
 			break;
-			case 3 ://Ïò×ó
+			case 3 ://????
 			snakeHead = [snakeHead[0]-1,snakeHead[1]];
 			break;
-			case 4 ://ÏòÉÏ
+			case 4 ://????
 			snakeHead = [snakeHead[0],snakeHead[1]-1];
 			break;
 		}
 
-		//³¬½ç£¬»ò×²ÉÏ×Ô¼º¡£½áÊø£¬ÖØÖÃ¡£
+		//???ç£¬???????????????????Ã¡?
 		if(in_array(snakeHead,snakeArr) || snakeHead[0]<0 || snakeHead[0]>this.x || snakeHead[1]<0 || snakeHead[1]>this.y){
 			window.clearInterval(this.timer);
-			alert('ËäÈ»Ê§°ÜÁË£¬²»¹ıÃ»¹ØÏµ£¬»¹¿ÉÒÔÔÙÀ´Ò»¾Ö£¡±¾¾ÖµÃ·Ö£º'+this.score);
+			alert('?????????????????????????????????????Ã·??'+this.score);
 			this.init();
 			return;
 		}
 
-		 snakeArr.push(snakeHead);//½«ÉßÍ··ÅÈëÊı×é
+		 snakeArr.push(snakeHead);//?????????????
 
 
 		 this.drawCell(snakeHead,1);
 		 if(snakeHead.toString() != this.coolPoint.toString()){
-			var tail = snakeArr.shift();//ÒÆ³ıÉßÎ²¡£
+			var tail = snakeArr.shift();//?????Î²??
 			this.drawCell(tail,0);
 
-		}else{//×²µ½coolPoint
+		}else{//???coolPoint
 			this.createCoolPoint();
 			this.drawCell(this.coolPoint,2);
 			this.score = this.score + 10;
-			this.scoreele.innerHTML="ÎÒµÄµÃ·Ö£º"+this.score;
+			this.scoreele.innerHTML="æˆ‘çš„å¾—åˆ†"+this.score;
 			this.speed =  Math.ceil((this.score + 1)/100);
-			this.speedele.innerHTML="µ±Ç°ËÙ¶È£º"+this.speed;
+			this.speedele.innerHTML="å½“å‰é€Ÿåº¦"+this.speed;
 		}
 
 		this.setTimer();
 
 	},
 
-	createCoolPoint:function(){//Ëæ»úÉú³ÉcoolPoint,²»ÔÚ´ú±ísnakeArrµÄÊı×éÖĞ¡£
+	createCoolPoint:function(){//???????coolPoint,???????snakeArr???????Ğ¡?
 		do{
 			this.coolPoint = [getRandom(this.x),getRandom(this.y)];
 		}while(in_array(this.coolPoint,this.snakeArr));
 	},
 	changeDiretion:function(){
-		//¸ü»»ÒÆ¶¯·½Ïò¡£ÏÂÒ»²½µÄÒÆ¶¯·½Ïò¡£
+		//?????????????????????????
 		var that = this;
 		document.onkeydown=function(event){
 			var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -119,23 +119,23 @@ Snake.prototype = {
 			var keyCode = e.keyCode;
 
 			switch(keyCode){
-				case 39://ÓÒ
+				case 39://??
 				if(direction!=1 && direction !=3){
 					that.nextDirection = 1;
 				}
 
 				break;
-				case 40://ÏÂ
+				case 40://??
 				if(direction!=2 && direction !=4){
 					that.nextDirection = 2;
 				}
 				break;
-				case 37://×ó
+				case 37://??
 				if(direction!=1 && direction !=3){
 					that.nextDirection = 3;
 				}
 				break;
-				case 38://ÉÏ
+				case 38://??
 				if(direction!=2 && direction !=4){
 					that.nextDirection = 4;
 				}
@@ -147,14 +147,14 @@ Snake.prototype = {
 		};
 	},
 	drawSnake:function(){
-		//»æÖÆ³õÊ¼Ğ¡Éß¡£
+		//??????Ğ¡???
 		var snakeArr = this.snakeArr;
 		for (var i = 0,sLen=snakeArr.length; i < sLen; i++) {
 			this.drawCell(snakeArr[i],1);
 		};
 
 	},
-	drawCell:function(pos,type){//»æÖÆ»áÓÃµ½µÄ¼¸ÖÖÑÕÉ«µÄÍ¼¡£
+	drawCell:function(pos,type){//?????????????????????
 
 		var colorArr = ['#fff','rgb(0, 0, 0)',"red"];
 		var cxt = this.cxt;
@@ -173,12 +173,12 @@ function beginGame() {
     !isMove && setInterval(moveClock, 300);
     isMove = true;
 }
-//Éú³ÉËæ»úÕıÕûÊı 1µ½nÖ®¼ä¡£
+//????????????? 1??n???
 function getRandom(n){
 	return Math.floor(Math.random()*n+1)
 }
 
-//ÅĞ¶ÏÒ»¸öÊı×éÊÇ·ñÔÚÁíÒ»¸öÊı×éÖĞ¡£×¢ÒâtoString()
+//?Ğ¶???????????????????????Ğ¡????toString()
 function in_array(stringToSearch, arrayToSearch) {
 	for (s = 0; s < arrayToSearch.length; s++) {
 		thisEntry = arrayToSearch[s].toString();
